@@ -230,7 +230,38 @@ button{-webkit-appearance:none;appearance:none;cursor:pointer;border:0;backgroun
 .inbar .mid{text-align:center;line-height:1.15}
 .inbar .mid b{display:block;font-size:16px}.inbar .mid small{font-size:11.5px;color:var(--muted)}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:16;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-.tabbar .in-t{max-width:600px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.tabbar .in-t{max-width:600px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+#app[data-m="dp"]{--mc:var(--dep)}
+:root{--dep:#7B4FA8}
+@media (prefers-color-scheme: dark){:root{--dep:#B08CE0}}
+body{--mc:var(--water)}body[data-m="se"]{--mc:var(--sed)}body[data-m="so"]{--mc:var(--soil)}body[data-m="dp"]{--mc:var(--dep)}
+#dbar{display:flex;align-items:center;gap:8px;height:68px;padding:10px}
+#dbar button{height:48px;border-radius:14px;font-size:16px;font-weight:700;white-space:nowrap}
+#dbar .dside{flex:none;min-width:104px;padding:0 14px;background:var(--soft);color:var(--ink)}
+#dbar .dmid{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;color:var(--ink);height:48px;padding:0 4px;background:none}
+#dbar .dmid b{display:block;font-size:16px}
+#dbar .dmid small{display:block;font-size:11px;color:var(--muted);font-weight:600}
+#dbar .dnext{flex:none;min-width:104px;padding:0 16px;background:var(--mc);color:#fff}
+#dbar button:disabled{opacity:.35}
+.chip.addchip{min-width:46px;color:var(--mc);border-style:dashed;font-size:18px}
+.chipgap{align-self:center;color:var(--muted);padding:0 2px}
+#dbar .dmain{flex:1;background:var(--mc);color:#fff;font-size:17px}
+#dbar .dmain.dnext{flex:none}
+.mapwrap{position:relative}
+.mapbtns{position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px}
+.mapbtns button{width:42px;height:42px;border-radius:12px;background:rgba(0,0,0,.62);color:#fff;font-size:24px;font-weight:700;line-height:1;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.mapbtns button.sm{font-size:11px;font-weight:700}
+.gpsbig{display:block;width:100%;height:56px;border-radius:15px;background:var(--mc);color:#fff;font-size:17px;font-weight:700}
+.gpsbig:disabled{opacity:.6}
+.dgrid .in{height:64px;font-size:26px;text-align:center}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px 10px}
+.dgrid .fld{margin-bottom:0}
+.drow{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:10px;align-items:center;width:100%;text-align:left;padding:10px 4px;border-bottom:1px solid var(--line)}
+.drow:last-child{border-bottom:0}
+.dmid b{font-size:16px}.dmid em{font-style:normal;font-size:12px;color:var(--mc);font-weight:700;margin-left:8px;background:color-mix(in srgb,var(--mc) 12%,transparent);padding:1px 8px;border-radius:999px}
+.dmid small{display:block;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dval{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--inkblue)}.dval small{font-size:12px;color:var(--muted);margin-left:3px;font-weight:600}
+.dph{display:flex;align-items:center;gap:3px;font-size:12px;color:var(--muted)}.dph svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2}
 .tabbtn{height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11.5px;font-weight:600;color:var(--muted)}
 .tabbtn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .tabbtn[aria-selected="true"]{color:var(--pri)}
@@ -353,8 +384,10 @@ tr.click{cursor:pointer}
   <div class="mid" id="fmid"></div>
   <button id="next" aria-label="จุดถัดไป">›</button>
 </div></div>
+<div class="fnav" id="dnav" hidden><div class="inbar" id="dbar"></div></div>
 <nav class="tabbar" id="tabbar" aria-label="เมนูหลัก"><div class="in-t">
-  <button class="tabbtn" data-tab="rec" aria-selected="true"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.500 3.500a2.100 2.100 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>กรอกข้อมูล</button>
+  <button class="tabbtn" data-tab="rec" aria-selected="true"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.500 3.500a2.100 2.100 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>ตัวอย่าง</button>
+  <button class="tabbtn" data-tab="dep"><svg viewBox="0 0 24 24"><path d="M3 8c3 0 3 2 6 2s3-2 6-2 3 2 6 2"/><path d="M3 14c3 0 3 2 6 2s3-2 6-2 3 2 6 2"/><path d="M12 3v3M10.500 4.500 12 6l1.500-1.500"/></svg>ความลึก</button>
   <button class="tabbtn" data-tab="sum"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg>สรุป</button>
   <button class="tabbtn" data-tab="exp"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>ส่งออก</button>
   <button class="tabbtn" data-tab="set"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.400 15a1.700 1.700 0 0 0 .3 1.800l.1.1a2 2 0 1 1-2.800 2.800l-.1-.1a1.700 1.700 0 0 0-1.800-.3 1.700 1.700 0 0 0-1 1.500V21a2 2 0 1 1-4 0v-.1a1.700 1.700 0 0 0-1.100-1.500 1.700 1.700 0 0 0-1.800.3l-.1.1a2 2 0 1 1-2.800-2.800l.1-.1a1.700 1.700 0 0 0 .3-1.800 1.700 1.700 0 0 0-1.500-1H3a2 2 0 1 1 0-4h.1a1.700 1.700 0 0 0 1.500-1.100 1.700 1.700 0 0 0-.3-1.800l-.1-.1a2 2 0 1 1 2.800-2.800l.1.1a1.700 1.700 0 0 0 1.800.3H9a1.700 1.700 0 0 0 1-1.500V3a2 2 0 1 1 4 0v.1a1.700 1.700 0 0 0 1 1.500 1.700 1.700 0 0 0 1.800-.3l.1-.1a2 2 0 1 1 2.800 2.800l-.1.1a1.700 1.700 0 0 0-.3 1.800V9a1.700 1.700 0 0 0 1.500 1H21a2 2 0 1 1 0 4h-.1a1.700 1.700 0 0 0-1.500 1Z"/></svg>ตั้งค่า</button>
@@ -412,7 +445,7 @@ function defaults(){
     x.p = {b:String(v[2]), m:String(v[3]), s:String(v[4])};
     x.t = {b:String(v[5]), m:String(v[6]), s:String(v[7])};
   }
-  return {lake:'Bang Phar Dam', code:'BPW', dt:'', factor:2.8, surface:30, cur:0, tab:'rec', sites};
+  return {lake:'Nam Aun Dam', code:'NAW', dt:'', factor:2.8, surface:30, cur:0, tab:'rec', sites};
 }
 
 /* ---------- storage ---------- */
@@ -572,7 +605,7 @@ function rowFor(i){
 const rowsOut = () => { const l = listIdx(); return (l.length ? l : [0]).map(rowFor); };
 const MIME_X = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 const MIME_D = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-const fname = ext => `BPW_${(S.dt || nowLocal()).slice(0,10)}.${ext}`;
+const fname = ext => `NAW_${(S.dt || nowLocal()).slice(0,10)}.${ext}`;
 async function saveBlob(blob, name){
   try {
     const file = new File([blob], name, {type: blob.type});
@@ -764,9 +797,12 @@ const KEY2 = 'bpw-datasheet-v2', KEY1 = 'bpw-datasheet-v1', MAXSITE = 30, APPV =
 const MK = ['w','se','so'];
 const MED = {w:{n:'น้ำ', full:'น้ำ (Water)', folder:'water', color:'#1B8FA6', kml:'ffa68f1b'},
              se:{n:'ตะกอนดิน', full:'ตะกอนดิน (Sediment)', folder:'sediment', color:'#9A6F3A', kml:'ff3a6f9a'},
-             so:{n:'ดิน', full:'ดิน (Soil)', folder:'soil', color:'#5E8B3D', kml:'ff3d8b5e'}};
+             so:{n:'ดิน', full:'ดิน (Soil)', folder:'soil', color:'#5E8B3D', kml:'ff3d8b5e'},
+             dp:{n:'ความลึกทั่วอ่าง', full:'ความลึกทั่วอ่าง (Depth survey)', folder:'depth', color:'#7B4FA8', kml:'ffa84f7b'}};
 const KIND = {sample:'ภาพตัวอย่าง', action:'ภาพขณะเก็บตัวอย่าง'};
 const ICO = {
+  depth:'<svg viewBox="0 0 24 24"><path d="M3 8c3 0 3 2 6 2s3-2 6-2 3 2 6 2"/><path d="M3 14c3 0 3 2 6 2s3-2 6-2 3 2 6 2"/><path d="M12 3v3M10.500 4.500 12 6l1.500-1.500"/></svg>',
+  plus:'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
   pin:'<svg viewBox="0 0 24 24"><path d="M12 21s7-6.200 7-11a7 7 0 1 0-14 0c0 4.800 7 11 7 11Z"/><circle cx="12" cy="10" r="2.500"/></svg>',
   ruler:'<svg viewBox="0 0 24 24"><path d="M3 17 17 3l4 4L7 21Z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/></svg>',
   therm:'<svg viewBox="0 0 24 24"><path d="M14 14.800V5a2 2 0 1 0-4 0v9.800a4 4 0 1 0 4 0Z"/></svg>',
@@ -792,23 +828,25 @@ const BLANK = {w:bw, se:bse, so:bso};
 const blankSite = () => ({w:bw(), se:bse(), so:bso()});
 function defaults(){
   const sites = Array.from({length:MAXSITE}, blankSite);
-  return {v:2, lake:'Bang Phar Dam', codes:{w:'BPW', se:'BPSE', so:'BPSO'}, n:10, team:'', dt:'', factor:2.8, surface:30,
-          stamp:true, maxpx:1600, q:.82, cur:0, med:'w', tab:'rec', lastExport:'', sites};
+  return {v:2, lake:'Nam Aun Dam', codes:{w:'NAW', se:'NASE', so:'NASO'}, n:10, team:'', dt:'', factor:2.8, surface:30,
+          stamp:true, maxpx:1600, q:.82, cur:0, med:'w', tab:'rec', lastExport:'', sites,
+          dep:{rounds:3, offset:0, auto:true, spread:0.3, code:'NAD', seq:0, view:'list', cur:'', sort:'new', q:'', lastLine:'', map:'sat'}};
 }
 function fix(o){
   const d = defaults(), s = Object.assign(d, o);
-  s.codes = Object.assign({w:'BPW', se:'BPSE', so:'BPSO'}, o.codes || {});
+  s.dep = Object.assign(defaults().dep, o.dep || {}); s.dep.rounds = Math.max(1, Math.min(10, +s.dep.rounds || 3));
+  s.codes = Object.assign({w:'NAW', se:'NASE', so:'NASO'}, o.codes || {});
   s.sites = Array.from({length:MAXSITE}, (_,i) => { const a = (o.sites || [])[i] || {}, r = {};
     for (const m of MK) { const b = BLANK[m](), x = Object.assign(b, a[m] || {});
       if (m === 'w') { x.t = Object.assign({s:'',m:'',b:''}, x.t); x.p = Object.assign({s:'',m:'',b:''}, x.p); }
       if (!Array.isArray(x.photos)) x.photos = []; r[m] = x; }
     return r; });
   s.n = Math.max(1, Math.min(MAXSITE, +s.n || 10)); s.cur = Math.max(0, Math.min(MAXSITE-1, +s.cur || 0));
-  if (!MK.includes(s.med)) s.med = 'w'; if (!['rec','sum','exp','set'].includes(s.tab)) s.tab = 'rec';
+  if (!MK.includes(s.med)) s.med = 'w'; if (!['rec','dep','sum','exp','set'].includes(s.tab)) s.tab = 'rec';
   return s;
 }
 function migrateV1(o){
-  const d = defaults(); d.lake = o.lake || d.lake; d.codes.w = o.code || 'BPW'; d.dt = o.dt || '';
+  const d = defaults(); d.lake = o.lake || d.lake; d.codes.w = o.code || 'NAW'; d.dt = o.dt || '';
   d.factor = o.factor ?? 2.8; d.surface = o.surface ?? 30; d.cur = o.cur || 0;
   d.sites = Array.from({length:MAXSITE}, (_,i) => { const s = blankSite(), a = (o.sites || [])[i];
     if (a) { Object.assign(s.w, a); s.w.t = Object.assign({s:'',m:'',b:''}, a.t); s.w.p = Object.assign({s:'',m:'',b:''}, a.p); s.w.photos = []; } return s; });
@@ -835,16 +873,24 @@ window.addEventListener('pagehide', saveNow); document.addEventListener('visibil
 
 /* ---------- IndexedDB (ภาพถ่าย) ---------- */
 let dbp;
-const idb = () => dbp || (dbp = new Promise((res, rej) => { const r = indexedDB.open('bpw-photos', 1);
-  r.onupgradeneeded = () => r.result.createObjectStore('p', {keyPath:'id'}); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }));
+const idb = () => dbp || (dbp = new Promise((res, rej) => { const r = indexedDB.open('bpw-photos', 2);
+  r.onupgradeneeded = () => { const db = r.result; if (!db.objectStoreNames.contains('p')) db.createObjectStore('p', {keyPath:'id'}); if (!db.objectStoreNames.contains('d')) db.createObjectStore('d', {keyPath:'id'}); };
+  r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }));
+const idbTx = async (store, mode, fn) => { const db = await idb(); return new Promise((res, rej) => { const t = db.transaction(store, mode), r = fn(t.objectStore(store)); t.oncomplete = () => res(r && r.result); t.onerror = () => rej(t.error); }); };
+const idbPutS = (s, rec) => idbTx(s, 'readwrite', o => o.put(rec));
+const idbAllS = s => idbTx(s, 'readonly', o => o.getAll());
+const idbDelS = (s, id) => idbTx(s, 'readwrite', o => o.delete(id));
+const idbClearS = s => idbTx(s, 'readwrite', o => o.clear());
 const idbPut = async rec => { const db = await idb(); return new Promise((res, rej) => { const t = db.transaction('p', 'readwrite'); t.objectStore('p').put(rec); t.oncomplete = res; t.onerror = () => rej(t.error); }); };
 const idbGet = async id => { const db = await idb(); return new Promise((res, rej) => { const r = db.transaction('p').objectStore('p').get(id); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); };
 const idbDel = async id => { const db = await idb(); return new Promise((res, rej) => { const t = db.transaction('p', 'readwrite'); t.objectStore('p').delete(id); t.oncomplete = res; t.onerror = () => rej(t.error); }); };
 const idbClear = async () => { const db = await idb(); return new Promise((res, rej) => { const t = db.transaction('p', 'readwrite'); t.objectStore('p').clear(); t.oncomplete = res; t.onerror = () => rej(t.error); }); };
 
 /* ---------- helpers ---------- */
-const stName = (m, i) => `${S.codes[m] || m}${i+1}`;
-const recOf = (m, i) => S.sites[i][m];
+let DP = [], dpReady = false;   // จุดวัดความลึกทั่วอ่าง (เก็บใน IndexedDB ทีละจุด รองรับจำนวนมาก)
+const dpName = x => `${S.dep.code || 'NAD'}${String(x.n).padStart(3, '0')}`;
+const stName = (m, i) => m === 'dp' ? (DP[i] ? dpName(DP[i]) : 'D?') : `${S.codes[m] || m}${i+1}`;
+const recOf = (m, i) => m === 'dp' ? DP[i] : S.sites[i][m];
 const cur = () => recOf(S.med, S.cur);
 const getv = (x,k) => k.split('.').reduce((a,b) => a[b], x);
 const setv = (x,k,v) => { const p = k.split('.'); const l = p.pop(); p.reduce((a,b) => a[b], x)[l] = v; };
@@ -861,7 +907,8 @@ function status(m, x){ const r = REQ[m](x), n = r.filter(v => v !== '').length; 
 function prog(m, x){ const a = MAIN[m](x); return [a.filter(v => v !== '').length, a.length]; }
 function lastUsed(){ let l = -1; S.sites.forEach((s,i) => { if (MK.some(m => anyData(m, s[m]))) l = i; }); return l; }
 const nSites = () => Math.min(MAXSITE, Math.max(S.n, lastUsed() + 1));
-const listIdx = m => { const a = []; for (let i = 0; i < nSites(); i++) if (status(m, recOf(m, i))) a.push(i); return a; };
+const listIdx = m => { const a = []; if (m === 'dp') { DP.forEach((x, i) => { if (dpHas(x)) a.push(i); }); return a; }
+  for (let i = 0; i < nSites(); i++) if (status(m, recOf(m, i))) a.push(i); return a; };
 const nn = v => num(v) ?? '';
 const cnt = (x,k) => x.photos.filter(p => p.k === k).length || '';
 
@@ -905,7 +952,7 @@ async function addPhotos(files, kind){
       x.photos.push({id, k:kind, ts:nowLocal(), cap:'', w:r.w, h:r.h}); ok++;
     }
   } catch(e){ console.error(e); toast('บันทึกรูปไม่สำเร็จ (พื้นที่เก็บข้อมูลเต็ม หรือรูปไม่รองรับ)'); }
-  busy(''); save(); if (ok) toast(`เพิ่มรูปแล้ว ${ok} รูป`); render();
+  busy(''); save(); if (m === 'dp') idbPutS('d', x).catch(() => {}); if (ok) toast(`เพิ่มรูปแล้ว ${ok} รูป`); render();
 }
 /* ---------- column specs (ใช้ร่วมกันทุกการส่งออก) ---------- */
 const rr = v => v == null ? '' : Math.round(v*10)/10;
@@ -946,7 +993,9 @@ const OPT = {
 };
 function renderHead(noScroll){
   const rec = S.tab === 'rec', sum = S.tab === 'sum', n = nSites();
-  $('#app').dataset.m = S.med; $('#medseg').hidden = !(rec || sum); $('#chips').hidden = !rec; $('#fnav').hidden = !rec;
+  const depEdit = S.tab === 'dep' && dpReady && S.dep.view === 'edit' && dpIdx(S.dep.cur) >= 0;
+  $('#app').dataset.m = document.body.dataset.m = S.tab === 'dep' ? 'dp' : S.med; $('#medseg').hidden = !(rec || sum); $('#chips').hidden = !(rec || depEdit); $('#fnav').hidden = !rec;
+  $('#dnav').hidden = !(S.tab === 'dep' && dpReady);
   $('#hd-sub').textContent = `${S.lake || '-'} · ${fmtDT(S.dt)}`;
   $$('.tabbtn').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === S.tab)));
   $('#medseg').innerHTML = MK.map(m => { const d = Array.from({length:n}, (_,i) => status(m, recOf(m,i))).filter(s => s === 'done').length;
@@ -958,13 +1007,24 @@ function renderHead(noScroll){
     else if (noScroll && on) { c.scrollLeft = Math.max(0, on.offsetLeft - c.clientWidth/2 + on.clientWidth/2); }
     $('#fmid').innerHTML = `<b>${esc(stName(S.med,S.cur))}</b><small>${MED[S.med].n} · จุดที่ ${S.cur+1}/${n}</small>`;
     $('#prev').disabled = S.cur <= 0; $('#next').textContent = S.cur >= n-1 ? '✓' : '›';
+  } else if (depEdit) {
+    const c = $('#chips'); c.innerHTML = dpChipsHTML(); const on = c.querySelector('.on');
+    if (on) c.scrollLeft = Math.max(0, on.offsetLeft - c.clientWidth / 2 + on.clientWidth / 2);
   }
+}
+function dpChipsHTML(){
+  const idx = dpIdx(S.dep.cur), N = DP.length; let a = 0, b = N - 1, pre = '', post = '';
+  if (N > 140) { a = Math.max(0, idx - 60); b = Math.min(N - 1, idx + 60);
+    if (a > 0) pre = `<button class="chip" data-did="${DP[0].id}">${DP[0].n}</button><span class="chipgap">…</span>`;
+    if (b < N - 1) post = `<span class="chipgap">…</span><button class="chip" data-did="${DP[N-1].id}">${DP[N-1].n}</button>`; }
+  const mid = DP.slice(a, b + 1).map(x => `<button class="chip ${dpDone(x) ? 'done' : (dpHas(x) ? 'part' : '')} ${x.id === S.dep.cur ? 'on' : ''}" data-did="${x.id}" aria-label="จุดที่ ${x.n}">${x.n}</button>`).join('');
+  return pre + mid + post + '<button class="chip addchip" type="button" data-dadd="1" aria-label="เพิ่มจุดใหม่">＋</button>';
 }
 function go(i, m){ if (m) S.med = m; S.cur = Math.max(0, Math.min(MAXSITE-1, i)); S.tab = 'rec'; save(); render(); window.scrollTo(0,0); }
 function setTab(t){ S.tab = t; save(); render(); window.scrollTo(0,0); }
 function setMed(m){ S.med = m; save(); render(); }
 function render(){
-  ({rec:renderRec, sum:renderSum, exp:renderExp, set:renderSet})[S.tab]();
+  ({rec:renderRec, dep:renderDep, sum:renderSum, exp:renderExp, set:renderSet})[S.tab]();
   renderHead();
 }
 
@@ -1060,14 +1120,23 @@ function gpsFill(){
   tm = setTimeout(finish, 9000);
 }
 function onViewClick(e){
+  if (e.target.id === 'dpPlot') return dpPlotTap(e);
   const b = e.target.closest('[data-act]'); if (!b) return; const a = b.dataset.act;
   if (a === 'gps') gpsFill();
   else if (a === 'fromw') { const w = recOf('w', S.cur), x = cur(); if (!w.lon || !w.lat) return toast('จุดน้ำยังไม่มีพิกัด'); x.lon = w.lon; x.lat = w.lat; x.acc = w.acc; if (!x.ts) x.ts = nowLocal(); save(); render(); toast('คัดลอกพิกัดจากจุดน้ำแล้ว'); }
   else if (a === 'tsnow') { cur().ts = nowLocal(); const t = $('[data-t="ts"]'); if (t) t.value = cur().ts; save(); }
   else if (a === 'opt') { const x = cur(), k = b.dataset.k, v = b.dataset.v; x[k] = x[k] === v ? '' : v; const el = $(`[data-t="${k}"]`); if (el) el.value = x[k];
     $$(`.opt[data-k="${k}"]`).forEach(o => o.setAttribute('aria-pressed', String(o.dataset.v === x[k]))); save(); updRing(); renderHead(); }
-  else if (a === 'cam' || a === 'lib') { pending = {m:S.med, i:S.cur}; const f = $(a === 'cam' ? '#fileCam' : '#fileLib'); f.dataset.kind = b.dataset.kind; f.click(); }
-  else if (a === 'pview') openViewer(S.med, S.cur, +b.dataset.idx);
+  else if (a === 'cam' || a === 'lib') { pending = S.tab === 'dep' ? {m:'dp', i:dpIdx(S.dep.cur)} : {m:S.med, i:S.cur}; const f = $(a === 'cam' ? '#fileCam' : '#fileLib'); f.dataset.kind = b.dataset.kind; f.click(); }
+  else if (a === 'pview') { if (S.tab === 'dep') openViewer('dp', dpIdx(S.dep.cur), +b.dataset.idx); else openViewer(S.med, S.cur, +b.dataset.idx); }
+  else if (a === 'dopen') dpOpen(b.dataset.id);
+  else if (a === 'dzoom') { dpView.z = Math.max(-6, Math.min(6, Math.round((dpView.z + (+b.dataset.d)) * 2) / 2)); dpUpdate(); }
+  else if (a === 'dzreset') { dpView = {z:0, x:0, y:0}; dpUpdate(); }
+  else if (a === 'dgps') gpsFillDp();
+  else if (a === 'dtsnow') { const x = dpCur(); if (x) { x.ts = nowLocal(); const t = $('[data-t="ts"]'); if (t) t.value = x.ts; idbPutS('d', x); } }
+  else if (a === 'ddel') dpDelete(S.dep.cur);
+  else if (a === 'dmore') { dpLimit += 100; fillDepList(); }
+  else if (a === 'drounds') { S.dep.rounds = Math.max(1, Math.min(10, S.dep.rounds + (+b.dataset.d))); buildDpCols(); save(); render(); }
   else if (a === 'gotoset') setTab('set');
   else if (a === 'open') go(+b.dataset.i, b.dataset.m);
   else if (a === 'x') runExport(b.dataset.x);
@@ -1076,6 +1145,7 @@ function onViewClick(e){
   else if (a === 'reset') resetAll();
 }
 function onViewInput(e){
+  if (S.tab === 'dep') return onDepInput(e.target);
   const el = e.target, x = S.tab === 'rec' ? cur() : null;
   if (S.tab === 'rec' && (el.dataset.k || el.dataset.t)) {
     if (el.dataset.k) { let v = el.value.replace(',', '.').replace(/[^0-9.\-]/g, ''); if (v !== el.value) el.value = v; setv(x, el.dataset.k, v);
@@ -1087,6 +1157,9 @@ function onViewInput(e){
   if (S.tab === 'set' && el.dataset.s) { settingInput(el); }
 }
 function onViewKey(e){
+  if (S.tab === 'dep' && e.key === 'Enter' && e.target.dataset.k) { e.preventDefault();
+    const arr = ['lon', 'lat', ...Array.from({length:S.dep.rounds}, (_, k) => 'v.' + k)], i = arr.indexOf(e.target.dataset.k), nx = arr[i+1] && $(`#view [data-k="${arr[i+1]}"]`);
+    if (nx) { nx.focus(); try { nx.select(); } catch(_){} } else { e.target.blur(); } return; }
   if (e.key !== 'Enter' || !e.target.dataset.k || S.tab !== 'rec') return; e.preventDefault();
   const arr = ORDER[S.med], i = arr.indexOf(e.target.dataset.k), nx = arr[i+1] && $(`#view [data-k="${arr[i+1]}"]`);
   if (nx) { nx.focus(); try { nx.select(); } catch(_){} } else e.target.blur();
@@ -1107,15 +1180,263 @@ function wireViewer(){
   $('#vclose').onclick = closeViewer;
   const step = d => { const n = recOf(V.m, V.i).photos.length; V.idx = (V.idx + d + n) % n; showPhoto(); };
   $('#vprev').onclick = () => step(-1); $('#vnext').onclick = () => step(1);
-  $('#vkind').onclick = e => { const b = e.target.closest('button'); if (!b || !V) return; recOf(V.m, V.i).photos[V.idx].k = b.dataset.k; save(); showPhoto(); };
-  $('#vcap').oninput = e => { if (V) { recOf(V.m, V.i).photos[V.idx].cap = e.target.value; save(); } };
+  $('#vkind').onclick = e => { const b = e.target.closest('button'); if (!b || !V) return; recOf(V.m, V.i).photos[V.idx].k = b.dataset.k; save(); if (V.m === 'dp') idbPutS('d', recOf('dp', V.i)); showPhoto(); };
+  $('#vcap').oninput = e => { if (V) { recOf(V.m, V.i).photos[V.idx].cap = e.target.value; save(); if (V.m === 'dp') idbPutS('d', recOf('dp', V.i)); } };
   $('#vdel').onclick = async () => { if (!V || !confirm('ลบรูปนี้?')) return; const x = recOf(V.m, V.i), p = x.photos[V.idx];
-    x.photos.splice(V.idx, 1); try { await idbDel(p.id); } catch(e){} dropURLs(p.id); save();
+    x.photos.splice(V.idx, 1); try { await idbDel(p.id); } catch(e){} dropURLs(p.id); save(); if (V.m === 'dp') idbPutS('d', x);
     if (!x.photos.length) closeViewer(); else { V.idx = Math.min(V.idx, x.photos.length - 1); showPhoto(); } };
   $('#vshare').onclick = async () => { if (!V) return; const p = recOf(V.m, V.i).photos[V.idx], r = await idbGet(p.id); if (!r) return;
     await saveBlob(new File([r.blob], photoFile(V.m, V.i, p, V.idx), {type:'image/jpeg'}), photoFile(V.m, V.i, p, V.idx)); };
 }
 const photoFile = (m, i, p, idx) => `${stName(m, i)}_${p.k === 'sample' ? 'sample' : 'action'}_${recOf(m, i).photos.slice(0, idx + 1).filter(q => q.k === p.k).length}.jpg`;
+
+/* ---------- สำรวจความลึกทั่วอ่าง (Depth survey) ---------- */
+let dpLimit = 100, dpHits = [], dpView = {z:0, x:0, y:0}, dpMoved = false, dpPinch = 0;
+const dpPtrs = new Map();
+const dpHas = x => x.v.some(v => v !== '') || (x.lon !== '' && x.lat !== '');
+const dpIdx = id => DP.findIndex(x => x.id === id);
+const dpCur = () => DP[dpIdx(S.dep.cur)];
+const r2 = v => v == null ? '' : Math.round(v * 100) / 100;
+function dpFit(x){ while (x.v.length < S.dep.rounds) x.v.push(''); }
+function dpStat(x){
+  const a = []; for (let k = 0; k < S.dep.rounds; k++) { const v = num(x.v[k]); if (v != null) a.push(v); }
+  const n = a.length, mean = n ? a.reduce((s, v) => s + v, 0) / n : null;
+  const sd = n > 1 ? Math.sqrt(a.reduce((s, v) => s + (v - mean) ** 2, 0) / (n - 1)) : null, rng = n > 1 ? Math.max(...a) - Math.min(...a) : null;
+  return {n, mean, sd, rng, net: mean == null ? null : mean + (num(S.dep.offset) || 0)};
+}
+const dpDone = x => dpStat(x).n >= S.dep.rounds && x.lon !== '' && x.lat !== '';
+function buildDpCols(){
+  const cols = [{h:'Point', f:x => dpName(x), w:12, d:1}, ...(DP.some(x => x.line) ? [{h:'Line', f:x => x.line || '', w:12, d:1}] : []),
+    {h:'Longitude (X)', f:x => nn(x.lon), w:14, d:1}, {h:'Latitude (Y)', f:x => nn(x.lat), w:14, d:1}];
+  for (let k = 0; k < S.dep.rounds; k++) cols.push({h:`Depth รอบ ${k+1} (ม.)`, f:x => nn(x.v[k]), w:13, d:1, s:1});
+  cols.push({h:'ค่าเฉลี่ย (ม.)', f:x => r2(dpStat(x).mean), w:13, d:1, s:1}, {h:'SD (ม.)', f:x => r2(dpStat(x).sd), w:10, d:1},
+    {h:'ความลึกสุทธิ (ม.)', f:x => r2(dpStat(x).net), w:15, d:1, s:1}, {h:'วันเวลา', f:dtc, w:17, d:1}, {h:'GPS ± (ม.)', f:x => nn(x.acc), w:10},
+    ...(DP.some(x => x.note) ? [{h:'หมายเหตุ', f:x => x.note || '', w:28}] : []), ...(DP.some(x => x.photos.length) ? [{h:'รูปขณะทำงาน', f:x => x.photos.length || '', w:12}] : []));
+  COLS.dp = cols;
+}
+async function dpLoad(){
+  try { DP = (await idbAllS('d')) || []; } catch(e){ DP = []; toast('เปิดที่เก็บจุดวัดความลึกไม่ได้ (โหมดส่วนตัว?)'); }
+  DP.sort((a, b) => a.n - b.n); DP.forEach(x => { if (!Array.isArray(x.v)) x.v = []; if (!Array.isArray(x.photos)) x.photos = []; });
+  S.dep.seq = Math.max(S.dep.seq || 0, 0, ...DP.map(x => x.n)); dpReady = true; buildDpCols();
+}
+function dpNew(){
+  const n = (S.dep.seq || 0) + 1; S.dep.seq = n;
+  const x = {id:uid(), n, line:S.dep.lastLine || '', lon:'', lat:'', acc:'', ts:nowLocal(), v:Array(S.dep.rounds).fill(''), note:'', photos:[]};
+  DP.push(x); idbPutS('d', x).catch(() => toast('บันทึกจุดไม่สำเร็จ'));
+  S.dep.cur = x.id; S.dep.view = 'edit'; save(); render(); window.scrollTo(0, 0);
+  setTimeout(() => { const el = $('[data-k="v.0"]'); if (el) try { el.focus(); } catch(e){} }, 80);
+}
+const dpBlank = x => !x.v.some(v => v !== '') && x.lon === '' && x.lat === '' && !x.note && !x.photos.length;
+async function dpRemove(x){
+  const i = DP.indexOf(x); if (i >= 0) DP.splice(i, 1);
+  for (const p of x.photos) { try { await idbDel(p.id); } catch(e){} dropURLs(p.id); }
+  try { await idbDelS('d', x.id); } catch(e){}
+  if (x.n >= S.dep.seq) S.dep.seq = Math.max(0, ...DP.map(q => q.n));
+}
+function dpOpen(id){ if (dpIdx(id) < 0) return; S.dep.cur = id; S.dep.view = 'edit'; save(); render(); window.scrollTo(0, 0); }
+async function dpBack(){ const x = dpCur(); if (x && dpBlank(x)) await dpRemove(x); S.dep.view = 'list'; S.dep.cur = ''; save(); render(); window.scrollTo(0, 0); }
+const dpFocus = () => setTimeout(() => { const el = $('[data-k="v.0"]'); if (el) try { el.focus(); } catch(e){} }, 80);
+function dpWarn(x){
+  if (!x || dpBlank(x)) return; dpFit(x); const st = dpStat(x);
+  if (st.n < S.dep.rounds) toast(`จุดนี้กรอก ${st.n}/${S.dep.rounds} รอบ`, 1800);
+  else if (st.rng != null && st.rng > (num(S.dep.spread) || 0.3)) toast(`ค่าแต่ละรอบของจุดนี้ต่างกัน ${r2(st.rng)} ม.`, 2600);
+}
+async function dpGoto(id){
+  const x = dpCur(); if (x && x.id !== id) { dpFit(x); if (dpBlank(x)) await dpRemove(x); }
+  dpOpen(id); dpFocus();
+}
+async function dpPrev(){ const i = dpIdx(S.dep.cur); if (i <= 0) return; dpWarn(DP[i]); await dpGoto(DP[i - 1].id); }
+async function dpNext(){
+  const i = dpIdx(S.dep.cur), x = DP[i]; if (!x) return;
+  if (i < DP.length - 1) { dpWarn(x); await dpGoto(DP[i + 1].id); return; }
+  if (dpBlank(x)) return toast('กรอกค่าความลึกหรือกดตำแหน่งของจุดนี้ก่อน แล้วจึงไปจุดถัดไป');
+  dpWarn(x); dpNew();
+}
+async function dpDelete(id){
+  const x = DP[dpIdx(id)]; if (!x) return; if (!confirm(`ลบจุด ${dpName(x)} พร้อมรูปภาพ?`)) return;
+  await dpRemove(x); S.dep.view = 'list'; S.dep.cur = ''; save(); render(); toast('ลบจุดแล้ว');
+}
+function gpsFillDp(){
+  const x = dpCur(); if (!x) return; const id = x.id;
+  if (!navigator.geolocation) return toast('อุปกรณ์นี้ไม่รองรับ GPS');
+  let best = null, done = false, wid, tm;
+  const same = () => S.tab === 'dep' && S.dep.view === 'edit' && S.dep.cur === id;
+  const setBtn = (dis, t) => { if (same()) { const b = $('[data-act="dgps"]'); if (b) { b.disabled = dis; b.textContent = t; } } };
+  setBtn(true, 'กำลังหาตำแหน่ง…');
+  const apply = p => { if (!DP.includes(x)) return; x.lon = p.coords.longitude.toFixed(6); x.lat = p.coords.latitude.toFixed(6); x.acc = String(Math.round(p.coords.accuracy)); x.ts = nowLocal(); idbPutS('d', x);
+    if (same()) { const a = $('[data-k="lon"]'), b = $('[data-k="lat"]'), al = $('#accline'); if (a) a.value = x.lon; if (b) b.value = x.lat; if (al) al.innerHTML = accHTML(x); } };
+  const finish = () => { if (done) return; done = true; navigator.geolocation.clearWatch(wid); clearTimeout(tm); setBtn(false, 'ใช้ตำแหน่งปัจจุบัน'); if (!best) toast('หาตำแหน่งไม่ได้ ลองใหม่กลางแจ้ง'); };
+  wid = navigator.geolocation.watchPosition(p => { if (!best || p.coords.accuracy < best.coords.accuracy) { best = p; apply(p); } if (p.coords.accuracy <= 5) finish(); },
+    err => { if (best) return finish(); if (done) return; done = true; navigator.geolocation.clearWatch(wid); clearTimeout(tm); setBtn(false, 'ใช้ตำแหน่งปัจจุบัน');
+      toast(err && err.code === 1 ? 'ยังไม่ได้อนุญาตตำแหน่ง: ตั้งค่า → ความเป็นส่วนตัว → บริการหาตำแหน่ง' : 'หาตำแหน่งไม่ได้ ลองใหม่กลางแจ้ง'); },
+    {enableHighAccuracy:true, timeout:20000, maximumAge:0});
+  tm = setTimeout(finish, 6000);
+}
+function renderDep(){
+  if (!dpReady) { $('#view').innerHTML = '<div class="card hint">กำลังโหลดข้อมูล…</div>'; return; }
+  if (S.dep.view === 'edit' && dpIdx(S.dep.cur) >= 0) renderDepEdit(); else { S.dep.view = 'list'; renderDepList(); }
+  const di = dpIdx(S.dep.cur);
+  $('#dbar').innerHTML = S.dep.view === 'edit' && di >= 0
+    ? `<button class="dside" data-d="prev" type="button" ${di <= 0 ? 'disabled' : ''}>‹ ก่อนหน้า</button>
+       <button class="dmid" data-d="back" type="button"><b>${esc(dpName(DP[di]))}</b><small>จุดที่ ${di + 1}/${DP.length} · ดูรายการ</small></button>
+       <button class="dmain dnext" data-d="next" type="button">ถัดไป ›</button>`
+    : '<button class="dmain" data-d="new" type="button">＋ จุดใหม่</button>';
+}
+function renderDepList(){
+  dpView = {z:0, x:0, y:0};
+  const st = DP.map(dpStat), nets = st.map(s => s.net).filter(v => v != null), done = DP.filter(dpDone).length;
+  const mean = nets.length ? nets.reduce((a, b) => a + b, 0) / nets.length : null, off = num(S.dep.offset) || 0;
+  $('#view').innerHTML = `
+    <div class="sitehead"><div><small>สำรวจความลึกทั่วอ่าง</small><h2>${DP.length} จุด</h2></div><span class="badge">${S.dep.rounds} รอบ / จุด</span></div>
+    <section class="card"><div class="kv"><span>ครบทุกรอบ + พิกัด</span><b>${done} / ${DP.length}</b><span>ความลึกเฉลี่ย</span><b>${mean == null ? '–' : r2(mean) + ' ม.'}</b>
+      <span>ต่ำสุด – สูงสุด</span><b>${nets.length ? r2(Math.min(...nets)) + ' – ' + r2(Math.max(...nets)) + ' ม.' : '–'}</b><span>ค่าปรับ (offset)</span><b>${off} ม.</b></div></section>
+    ${card('depth', 'แผนที่จุดวัด (ดาวเทียม)', `<div class="mapwrap"><canvas id="dpPlot" style="width:100%;display:block;border-radius:12px;background:var(--soft)"></canvas>
+        <div class="mapbtns"><button type="button" data-act="dzoom" data-d="1" aria-label="ซูมเข้า">+</button><button type="button" data-act="dzoom" data-d="-1" aria-label="ซูมออก">−</button><button type="button" class="sm" data-act="dzreset" aria-label="ดูทุกจุด">ทั้งหมด</button></div></div>
+      <p class="hint" style="margin:8px 0 0">ซูมด้วยปุ่ม + − หรือใช้สองนิ้วถ่าง/หุบ · ลากเพื่อเลื่อน · แตะจุดเพื่อเปิดดูและแก้ไข · สีเหลือง = ตื้น ม่วงเข้ม = ลึก · ต้องมีอินเทอร์เน็ตจึงจะโหลดภาพดาวเทียม</p>`)}
+    <section class="card"><div class="card-h"><h3><i>${ICO.csv}</i>รายการจุด</h3></div>
+      <div class="row2" style="grid-template-columns:1fr 128px;margin-bottom:8px">
+        <input class="tx" data-dq type="search" placeholder="ค้นหา ID / แนว / หมายเหตุ" value="${esc(S.dep.q || '')}" autocomplete="off">
+        <select class="tx" data-dsort aria-label="เรียงลำดับ">${[['new','ล่าสุดก่อน'],['old','เก่าสุดก่อน'],['deep','ลึกสุดก่อน'],['shallow','ตื้นสุดก่อน'],['line','ตามแนว']].map(([v, t]) => `<option value="${v}" ${S.dep.sort === v ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
+      <div id="dlist"></div></section>
+    <p class="hint" style="text-align:center">ทำงานได้โดยไม่ต้องมีสัญญาณ · ส่งออก CSV/XYZ/Excel/KML ได้ที่แท็บ “ส่งออก”</p>`;
+  fillDepList(); drawDpPlot();
+}
+function dpRow(x){
+  const s = dpStat(x), st = dpDone(x) ? 'done' : (dpHas(x) ? 'part' : ''), vals = x.v.slice(0, S.dep.rounds).map(v => v === '' ? '–' : v).join(' · ');
+  return `<button class="drow" type="button" data-act="dopen" data-id="${x.id}"><span class="d ${st}"><i></i></span>
+    <span class="dmid"><b>${esc(dpName(x))}</b>${x.line ? `<em>${esc(x.line)}</em>` : ''}<small>${esc(vals)}</small></span>
+    <span class="dval">${s.net == null ? '–' : r2(s.net)}<small>ม.</small></span>${x.photos.length ? `<span class="dph">${ICO.cam}${x.photos.length}</span>` : ''}</button>`;
+}
+function fillDepList(){
+  const box = $('#dlist'); if (!box) return;
+  const q = (S.dep.q || '').trim().toLowerCase(), sort = S.dep.sort, net = o => dpStat(o.x).net;
+  const a = DP.map((x, i) => ({x, i})).filter(o => !q || (dpName(o.x) + ' ' + (o.x.line || '') + ' ' + (o.x.note || '')).toLowerCase().includes(q));
+  if (sort === 'new') a.reverse();
+  else if (sort === 'deep') a.sort((p, r) => (net(r) ?? -1e9) - (net(p) ?? -1e9));
+  else if (sort === 'shallow') a.sort((p, r) => (net(p) ?? 1e9) - (net(r) ?? 1e9));
+  else if (sort === 'line') a.sort((p, r) => String(p.x.line || '').localeCompare(String(r.x.line || ''), 'th') || p.x.n - r.x.n);
+  const shown = a.slice(0, dpLimit);
+  box.innerHTML = shown.length ? shown.map(o => dpRow(o.x)).join('') + (a.length > shown.length ? `<button class="btn" type="button" data-act="dmore" style="width:100%;margin-top:8px">แสดงเพิ่ม (อีก ${a.length - shown.length} จุด)</button>` : '')
+    : `<p class="hint" style="margin:6px 0 0">${DP.length ? 'ไม่พบจุดที่ค้นหา' : 'ยังไม่มีจุด · กด “＋ จุดใหม่” ด้านล่าง แล้วกด “ใช้ตำแหน่งปัจจุบัน” และกรอกค่าความลึก'}</p>`;
+}
+function photoCardDp(x){
+  const items = x.photos.map((p, idx) => ({p, idx}));
+  return card('cam', 'ภาพขณะทำงาน', `<div class="pgroup">${items.length ? `<div class="pgrid">${items.map(o => `<button class="ph" type="button" data-act="pview" data-idx="${o.idx}"><img data-pid="${o.p.id}" alt="ภาพขณะทำงาน" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></button>`).join('')}</div>` : '<div class="pempty">ยังไม่มีรูป (ไม่บังคับ)</div>'}
+    <div class="padd"><button class="pbtn" type="button" data-act="cam" data-kind="action">${ICO.cam} ถ่ายภาพ</button><button class="pbtn" type="button" data-act="lib" data-kind="action">${ICO.img} เลือกจากคลัง</button></div></div>`,
+    `<span class="badge">${x.photos.length} รูป</span>`);
+}
+function renderDepEdit(){
+  const x = dpCur(); dpFit(x);
+  const row = k => `<label class="fld"><span>รอบที่ ${k+1}<em>ม.</em></span>${inp('v.' + k, x.v[k], 'ความลึกรอบที่ ' + (k+1))}</label>`;
+  $('#view').innerHTML = `
+    <div class="sitehead"><div><small>จุดวัดความลึก</small><h2>${esc(dpName(x))}</h2></div><button class="btn-s" type="button" data-act="ddel" style="color:var(--warn);border-color:var(--warn)">ลบจุดนี้</button></div>
+    <section class="card">
+      <button class="gpsbig" type="button" data-act="dgps">ใช้ตำแหน่งปัจจุบัน</button>
+      <div class="accline" id="accline" style="margin:8px 0 6px">${accHTML(x)}</div>
+      <div class="row2">${fld('lon', x.lon, 'Longitude (X)')}${fld('lat', x.lat, 'Latitude (Y)')}</div>
+    </section>
+    ${card('ruler', 'ค่าความลึกที่วัด (ม.)', `<div class="dgrid">${Array.from({length:S.dep.rounds}, (_, k) => row(k)).join('')}</div><div id="dres"></div>`)}`;
+  updDep();
+}
+function updDep(){
+  const x = dpCur(), el = $('#dres'); if (!x || !el) return;
+  const s = dpStat(x), lim = num(S.dep.spread) || 0.3, off = num(S.dep.offset) || 0, msgs = [];
+  if (s.rng != null && s.rng > lim) msgs.push(`ค่าแต่ละรอบต่างกัน ${r2(s.rng)} ม. (เกณฑ์ ${lim} ม.) ตรวจสอบหรือวัดซ้ำ`);
+  if (s.n && s.n < S.dep.rounds) msgs.push(`กรอกแล้ว ${s.n}/${S.dep.rounds} รอบ`);
+  const la = num(x.lat), lo = num(x.lon); if (la != null && lo != null && (la < 4 || la > 22 || lo < 96 || lo > 107)) msgs.push('พิกัดอยู่นอกประเทศไทย ตรวจสอบว่า Lat/Lon ไม่สลับกัน');
+  el.innerHTML = `<div class="levels"><div class="lv"><small>ค่าเฉลี่ย (ม.)</small><b>${s.mean == null ? '–' : r2(s.mean)}</b></div><div class="lv"><small>SD (ม.)</small><b>${s.sd == null ? '–' : r2(s.sd)}</b></div><div class="lv"><small>${off ? 'สุทธิ (+' + off + ')' : 'สุทธิ (ม.)'}</small><b>${s.net == null ? '–' : r2(s.net)}</b></div></div>
+    <div class="msg">${esc(msgs.join(' · '))}</div>`;
+  $$('#view input.in').forEach(i => { const v = num(i.value); i.classList.toggle('bad', !!(i.dataset.k && i.dataset.k.startsWith('v.') && v != null && (v < 0 || v > 300))); });
+}
+function onDepInput(el){
+  if (el.dataset.dq !== undefined) { S.dep.q = el.value; dpLimit = 100; save(); fillDepList(); return; }
+  if (el.dataset.dsort !== undefined) { S.dep.sort = el.value; save(); fillDepList(); return; }
+  if (S.dep.view !== 'edit') return; const x = dpCur(); if (!x) return;
+  if (el.dataset.k) { let v = el.value.replace(',', '.').replace(/[^0-9.\-]/g, ''); if (v !== el.value) el.value = v; setv(x, el.dataset.k, v); }
+  else if (el.dataset.t) { setv(x, el.dataset.t, el.value); if (el.dataset.t === 'line') S.dep.lastLine = el.value; }
+  else return;
+  idbPutS('d', x); save(); updDep();
+}
+/* แผนผังจุดวัด + แผนที่พื้นหลัง (Web Mercator, วาดภาพ tile เองบน canvas ไม่ใช้ไลบรารี) */
+const dpTiles = new Map(); let dpPlotState = null, dpPlotTok = 0, dpPaintRaf = 0;
+const DP_MAPS = {
+  sat:{url:(z, x, y) => `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`, max:17, attr:'Imagery © Esri, Maxar, Earthstar Geographics'}
+};
+const dpDist = () => { const a = Array.from(dpPtrs.values()); return a.length >= 2 ? Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y) : 0; };
+function dpApplyView(){
+  const st = dpPlotState; if (!st || st.zf0 == null) return;
+  st.zf = Math.max(1, Math.min(20, st.zf0 + dpView.z)); st.k = 256 * Math.pow(2, st.zf); st.cx = st.cx0 + dpView.x; st.cy = st.cy0 + dpView.y;
+}
+function dpUpdate(){ dpApplyView(); dpSchedule(); }
+function bindDpPlot(cv){
+  cv.style.touchAction = 'none';
+  cv.onpointerdown = e => { try { cv.setPointerCapture(e.pointerId); } catch(_){} dpPtrs.set(e.pointerId, {x:e.clientX, y:e.clientY, sx:e.clientX, sy:e.clientY}); dpMoved = false; if (dpPtrs.size === 2) dpPinch = dpDist(); };
+  cv.onpointermove = e => { const p = dpPtrs.get(e.pointerId), st = dpPlotState; if (!p || !st || !st.k) return;
+    if (dpPtrs.size >= 2) { const d = dpDist(); if (dpPinch > 0 && d > 0) { dpView.z = Math.max(-6, Math.min(6, dpView.z + Math.log2(d / dpPinch))); dpPinch = d; dpMoved = true; dpUpdate(); } p.x = e.clientX; p.y = e.clientY; return; }
+    if (Math.hypot(e.clientX - p.sx, e.clientY - p.sy) > 5) dpMoved = true;
+    if (dpMoved) { dpView.x -= (e.clientX - p.x) / st.k; dpView.y -= (e.clientY - p.y) / st.k; p.x = e.clientX; p.y = e.clientY; dpUpdate(); } };
+  const end = e => { dpPtrs.delete(e.pointerId); dpPinch = 0; };
+  cv.onpointerup = end; cv.onpointercancel = end;
+  cv.onwheel = e => { e.preventDefault(); dpView.z = Math.max(-6, Math.min(6, dpView.z + (e.deltaY < 0 ? .5 : -.5))); dpUpdate(); };
+}
+const mercX = lon => (lon + 180) / 360;
+const mercY = lat => { const s = Math.sin(Math.max(-85, Math.min(85, lat)) * Math.PI / 180); return 0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI); };
+const dpSchedule = () => { if (dpPaintRaf) return; dpPaintRaf = requestAnimationFrame(() => { dpPaintRaf = 0; paintDpPlot(); }); };
+function drawDpPlot(){
+  const cv = $('#dpPlot'); if (!cv) return;
+  const w = Math.max(240, cv.clientWidth || 320), h = Math.round(w * .9), dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); cv.style.height = h + 'px';
+  const pts = DP.map(x => ({x, lo:num(x.lon), la:num(x.lat), z:dpStat(x).net})).filter(p => p.lo != null && p.la != null);
+  const st = {cv, w, h, dpr, pts, tok:++dpPlotTok};
+  if (pts.length) {
+    const fx = pts.map(p => mercX(p.lo)), fy = pts.map(p => mercY(p.la)), x0 = Math.min(...fx), x1 = Math.max(...fx), y0 = Math.min(...fy), y1 = Math.max(...fy);
+    const sx = Math.max(x1 - x0, 1e-7) * 1.36, sy = Math.max(y1 - y0, 1e-7) * 1.36;
+    st.zf0 = Math.max(1, Math.min(17, Math.log2(Math.min((w - 24) / (sx * 256), (h - 56) / (sy * 256)))));
+    st.cx0 = (x0 + x1) / 2; st.cy0 = (y0 + y1) / 2;
+  }
+  dpPlotState = st; dpApplyView(); bindDpPlot(cv); if (dpTiles.size > 500) dpTiles.clear(); paintDpPlot();
+}
+function paintDpPlot(){
+  const st = dpPlotState; if (!st || st.tok !== dpPlotTok || !st.cv.isConnected) return; const {cv, w, h, dpr, pts} = st; dpHits = [];
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+  const cs = getComputedStyle(document.body); g.fillStyle = cs.getPropertyValue('--soft').trim() || '#E0EFF2'; g.fillRect(0, 0, w, h);
+  g.font = '12px -apple-system,"Thonburi",sans-serif'; g.textBaseline = 'middle';
+  if (!pts.length) { g.fillStyle = cs.getPropertyValue('--muted').trim() || '#5B7280'; g.textAlign = 'center'; g.fillText('ยังไม่มีจุดที่มีพิกัด', w / 2, h / 2); return; }
+  const kind = 'sat', M = DP_MAPS.sat, proj = (lo, la) => [w / 2 + (mercX(lo) - st.cx) * st.k, h / 2 + (mercY(la) - st.cy) * st.k];
+  let drawn = 0, bad = 0;
+  if (M) {
+    const zt = Math.max(1, Math.min(M.max, Math.round(st.zf))), n = Math.pow(2, zt), ts = st.k / n;
+    const tx0 = Math.floor((st.cx - w / 2 / st.k) * n), tx1 = Math.floor((st.cx + w / 2 / st.k) * n);
+    const ty0 = Math.max(0, Math.floor((st.cy - h / 2 / st.k) * n)), ty1 = Math.min(n - 1, Math.floor((st.cy + h / 2 / st.k) * n));
+    if ((tx1 - tx0 + 1) * (ty1 - ty0 + 1) <= 36) for (let ty = ty0; ty <= ty1; ty++) for (let tx = tx0; tx <= tx1; tx++) {
+      const wx = ((tx % n) + n) % n, key = `${kind}/${zt}/${wx}/${ty}`; let im = dpTiles.get(key);
+      if (!im) { im = new Image(); im.onload = dpSchedule; im.onerror = dpSchedule; im.src = M.url(zt, wx, ty); dpTiles.set(key, im); }
+      if (im.complete && im.naturalWidth > 0) { g.drawImage(im, w / 2 + (tx / n - st.cx) * st.k, h / 2 + (ty / n - st.cy) * st.k, ts + 0.7, ts + 0.7); drawn++; }
+      else if (im.complete) bad++;
+    }
+    if (drawn) { g.fillStyle = 'rgba(0,0,0,.10)'; g.fillRect(0, 0, w, h); }
+  }
+  // สีจุด: เหลือง = ตื้น → เขียวน้ำทะเล → ม่วงเข้ม = ลึก (อ่านง่ายบนภาพถ่ายดาวเทียม)
+  const zs = pts.map(p => p.z).filter(v => v != null), z0 = zs.length ? Math.min(...zs) : 0, z1 = zs.length ? Math.max(...zs) : 1;
+  const stops = [[253, 231, 37], [33, 145, 140], [68, 1, 84]], ramp = t => { const u = Math.max(0, Math.min(1, t)) * 2, i = Math.min(1, Math.floor(u)), f = u - i, a = stops[i], b = stops[i + 1];
+    return `rgb(${a.map((v, k) => Math.round(v + (b[k] - v) * f)).join(',')})`; };
+  pts.forEach(p => { const [px, py] = proj(p.lo, p.la), t = p.z == null || z1 === z0 ? .5 : (p.z - z0) / (z1 - z0);
+    g.beginPath(); g.arc(px, py, 6.5, 0, 7); g.fillStyle = p.z == null ? '#9aa5ab' : ramp(t); g.fill(); g.lineWidth = 2; g.strokeStyle = '#ffffff'; g.stroke(); g.lineWidth = .8; g.strokeStyle = 'rgba(0,0,0,.55)'; g.stroke(); dpHits.push({px, py, id:p.x.id}); });
+  const pill = (x, y, ww, hh) => { g.fillStyle = 'rgba(0,0,0,.55)'; g.beginPath(); if (g.roundRect) g.roundRect(x, y, ww, hh, 8); else g.rect(x, y, ww, hh); g.fill(); };
+  const gw = Math.min(150, w - 100), gx = 14, gy = h - 30; pill(8, h - 46, gw + 12, 38);
+  const gr = g.createLinearGradient(gx, 0, gx + gw, 0); gr.addColorStop(0, ramp(0)); gr.addColorStop(.5, ramp(.5)); gr.addColorStop(1, ramp(1));
+  g.fillStyle = gr; g.fillRect(gx, gy - 12, gw, 8); g.fillStyle = '#fff'; g.textAlign = 'left'; g.fillText(zs.length ? r2(z0) + ' ม.' : '', gx, gy + 6); g.textAlign = 'right'; g.fillText(zs.length ? r2(z1) + ' ม.' : '', gx + gw, gy + 6);
+  if (M) { g.font = '10px -apple-system,"Thonburi",sans-serif'; const tw = g.measureText(M.attr).width; pill(w - tw - 16, h - 22, tw + 12, 16); g.fillStyle = '#fff'; g.textAlign = 'right'; g.fillText(M.attr, w - 10, h - 14); }
+  if (M && !drawn && bad) { g.font = '12px -apple-system,"Thonburi",sans-serif'; pill(8, 8, 270, 24); g.fillStyle = '#fff'; g.textAlign = 'left'; g.fillText('ไม่มีสัญญาณอินเทอร์เน็ต · แสดงเฉพาะจุด', 16, 20); }
+}
+function dpPlotTap(e){
+  if (dpMoved) { dpMoved = false; return; }
+  const cv = e.target, r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top; let best = null, bd = 18;
+  dpHits.forEach(h => { const d = Math.hypot(h.px - x, h.py - y); if (d < bd) { bd = d; best = h; } });
+  if (best) dpOpen(best.id);
+}
+const dpXyz = () => toCsv([['X (Longitude)', 'Y (Latitude)', 'Z (Depth m)', 'Point', 'Line'], ...DP.map(x => { const lo = num(x.lon), la = num(x.lat), z = dpStat(x).net;
+  return lo != null && la != null && z != null ? [lo, la, r2(z), dpName(x), x.line || ''] : null; }).filter(Boolean)]);
 
 /* ---------- view: สรุป ---------- */
 function renderSum(){
@@ -1137,12 +1458,12 @@ function renderSum(){
 }
 
 /* ---------- view: ส่งออก ---------- */
-function allPhotos(){ const out = []; for (const m of MK) for (let i = 0; i < nSites(); i++) recOf(m,i).photos.forEach((p, idx) => out.push({m, i, p, idx, file:`photos/${MED[m].folder}/${stName(m, i)}/${p.k === 'sample' ? 'sample' : 'action'}/${photoFile(m, i, p, idx)}`})); return out; }
+function allPhotos(){ const out = []; for (const m of [...MK, 'dp']) for (let i = 0, n = m === 'dp' ? DP.length : nSites(); i < n; i++) recOf(m,i).photos.forEach((p, idx) => out.push({m, i, p, idx, file:`photos/${MED[m].folder}/${stName(m, i)}/${p.k === 'sample' ? 'sample' : 'action'}/${photoFile(m, i, p, idx)}`})); return out; }
 function renderExp(){
   const recs = MK.map(m => listIdx(m).length), ph = allPhotos().length;
   const item = (ico, t, sub, x) => `<button class="xitem" type="button" data-act="x" data-x="${x}"><span class="xico">${ICO[ico]}</span><span><b>${t}</b><small>${sub}</small></span><span class="go">›</span></button>`;
   $('#view').innerHTML = `
-    <section class="card"><div class="kv"><span>น้ำ</span><b>${recs[0]} จุด</b><span>ตะกอนดิน</span><b>${recs[1]} จุด</b><span>ดิน</span><b>${recs[2]} จุด</b><span>ภาพถ่าย</span><b>${ph} รูป</b><span>ส่งออกล่าสุด</span><b>${S.lastExport ? esc(fmtDT(S.lastExport)) : 'ยังไม่เคย'}</b></div></section>
+    <section class="card"><div class="kv"><span>น้ำ</span><b>${recs[0]} จุด</b><span>ตะกอนดิน</span><b>${recs[1]} จุด</b><span>ดิน</span><b>${recs[2]} จุด</b><span>ความลึกทั่วอ่าง</span><b>${listIdx('dp').length} จุด</b><span>ภาพถ่าย</span><b>${ph} รูป</b><span>ส่งออกล่าสุด</span><b>${S.lastExport ? esc(fmtDT(S.lastExport)) : 'ยังไม่เคย'}</b></div></section>
     ${!S.lastExport || dirty > 40 ? '<div class="warnbox">ข้อมูลเก็บไว้ในเครื่องนี้เท่านั้น หากล้างข้อมูลเว็บไซต์หรือใช้โหมดส่วนตัว ข้อมูลและรูปจะหาย ควรส่งออกแพ็กเกจสำรองไว้เสมอ</div>' : ''}
     <button class="btn pri big" style="width:100%" type="button" data-act="x" data-x="pkg">${ICO.zip} ส่งออกแพ็กเกจเต็ม (ZIP)</button>
     <p class="hint">รวมทุกอย่างในไฟล์เดียว: Excel · Word พร้อมรูป · CSV · พิกัด · KML/GeoJSON · รูปทั้งหมด · ไฟล์สำรอง</p>
@@ -1151,7 +1472,9 @@ function renderExp(){
       ${item('doc', 'Word (.docx) รายงานพร้อมรูป', 'ตารางทุกชนิดตัวอย่าง + รูปภาพแยกตามจุด', 'docx')}
       ${item('doc', 'Word (.docx) เฉพาะตาราง', 'ไฟล์เล็ก ไม่แนบรูป', 'docx0')}
       ${item('csv', 'CSV + ไฟล์พิกัด (ZIP)', 'CSV UTF-8 ทุกชนิดตัวอย่าง + พิกัดรูปแบบเดียวกับไฟล์ Coordinate', 'csv')}
-      ${item('map', 'Google Earth (.kml)', 'จุดน้ำ / ตะกอนดิน / ดิน พร้อมค่าที่วัด', 'kml')}
+      ${item('map', 'ความลึกทั่วอ่าง — XYZ (.csv)', 'X, Y, Z (ความลึกสุทธิ) สำหรับ Surfer / QGIS / ArcGIS ทำ depth map', 'xyz')}
+      ${item('csv', 'ความลึกทั่วอ่าง — ตารางเต็ม (.csv)', 'ทุกรอบ ค่าเฉลี่ย SD พิกัด แนว เวลา หมายเหตุ', 'dcsv')}
+      ${item('map', 'Google Earth (.kml)', 'จุดน้ำ / ตะกอนดิน / ดิน / ความลึก พร้อมค่าที่วัด', 'kml')}
       ${item('map', 'GeoJSON (.geojson)', 'สำหรับ QGIS / ArcGIS / เว็บแผนที่', 'geojson')}
       ${item('img', `รูปภาพทั้งหมด (ZIP) · ${ph} รูป`, 'จัดโฟลเดอร์ตามชนิดตัวอย่าง ตั้งชื่อไฟล์ตามรหัสจุด', 'photos')}
       ${item('csv', `คัดลอกตาราง${MED[S.med].n}`, 'วางใน Excel / Google Sheets / Notes', 'copy')}
@@ -1175,6 +1498,10 @@ function renderSet(){
       <div class="row2">${t('code.so', 'ดิน', S.codes.so, 'autocapitalize="characters"')}<div></div></div>
       <div class="fld"><span>จำนวนจุดเก็บตัวอย่าง</span><div class="stepper"><button type="button" data-act="stepn" data-d="-1">−</button><b>${S.n}</b><button type="button" data-act="stepn" data-d="1">+</button></div></div>
       <p class="hint" style="margin:0">ตัวอย่างรหัส: ${esc(stName('w',0))} · ${esc(stName('se',0))} · ${esc(stName('so',0))} (ข้อมูลที่กรอกไว้จะไม่หาย แม้ลดจำนวนจุด)</p>`)}
+    ${card('depth', 'สำรวจความลึกทั่วอ่าง', `<div class="fld"><span>จำนวนรอบการวัดต่อจุด</span><div class="stepper"><button type="button" data-act="drounds" data-d="-1">−</button><b>${S.dep.rounds}</b><button type="button" data-act="drounds" data-d="1">+</button></div></div>
+      <div class="row2">${t('dep.offset', 'ค่าปรับ (ม.) เช่น ระดับหัววัดใต้ผิวน้ำ', S.dep.offset, 'inputmode="decimal"')}${t('dep.spread', 'เตือนเมื่อค่าแต่ละรอบต่างกันเกิน (ม.)', S.dep.spread, 'inputmode="decimal"')}</div>
+      <div class="row2">${t('dep.code', 'รหัสนำหน้าจุด', S.dep.code, 'autocapitalize="characters"')}<div></div></div>
+      <p class="hint" style="margin:6px 0 0">ความลึกสุทธิ = ค่าเฉลี่ยของทุกรอบ + ค่าปรับ · ลดจำนวนรอบแล้วค่าที่กรอกไว้ในรอบที่เกินจะยังเก็บอยู่แต่ไม่ถูกนำไปคำนวณ</p>`)}
     ${card('ruler', 'การคำนวณระดับเก็บตัวอย่างน้ำ', `<div class="row2">${t('factor', 'ท้องน้ำ = Secchi ×', S.factor, 'inputmode="decimal"')}${t('surface', 'ระดับผิวน้ำ (ซม.)', S.surface, 'inputmode="decimal"')}</div><p class="hint" style="margin:0">กลางน้ำ = ท้องน้ำ ÷ 2</p>`)}
     ${card('cam', 'ภาพถ่าย', `<label class="toggle"><span><b>ประทับข้อมูลบนรูป</b><br><span class="hint">รหัสจุด ชนิดภาพ วันเวลา พิกัด</span></span><input type="checkbox" data-s="stamp" ${S.stamp ? 'checked' : ''}></label>
       <div class="row2"><label class="fld"><span>ขนาดรูปสูงสุด</span><select class="tx" data-s="maxpx">${[1024,1280,1600,2048].map(v => `<option value="${v}" ${+S.maxpx === v ? 'selected' : ''}>${v} px</option>`).join('')}</select></label>
@@ -1189,8 +1516,9 @@ function renderSet(){
 }
 function settingInput(el){
   const k = el.dataset.s;
-  if (k.startsWith('code.')) { const m = k.slice(5); S.codes[m] = el.value.trim() || {w:'BPW', se:'BPSE', so:'BPSO'}[m]; }
+  if (k.startsWith('code.')) { const m = k.slice(5); S.codes[m] = el.value.trim() || {w:'NAW', se:'NASE', so:'NASO'}[m]; }
   else if (k === 'stamp') S.stamp = el.checked;
+  else if (k.startsWith('dep.')) { const f = k.slice(4); S.dep[f] = f === 'auto' ? el.checked : f === 'code' ? (el.value.trim() || 'NAD') : el.value.replace(',', '.'); buildDpCols(); }
   else if (k === 'maxpx' || k === 'q') S[k] = +el.value;
   else if (k === 'factor' || k === 'surface') S[k] = el.value.replace(',', '.');
   else S[k] = el.value;
@@ -1198,15 +1526,15 @@ function settingInput(el){
 }
 function resetAll(){
   if (!confirm('ล้างข้อมูลและรูปภาพทุกจุด? ควรส่งออกแพ็กเกจสำรองไว้ก่อน')) return;
-  idbClear().catch(() => {}); urlCache.forEach(u => URL.revokeObjectURL(u)); urlCache.clear();
-  const keep = {lake:S.lake, codes:S.codes, team:S.team, factor:S.factor, surface:S.surface, n:S.n, stamp:S.stamp, maxpx:S.maxpx, q:S.q};
+  idbClear().catch(() => {}); idbClearS('d').catch(() => {}); DP = []; urlCache.forEach(u => URL.revokeObjectURL(u)); urlCache.clear();
+  const keep = {lake:S.lake, codes:S.codes, team:S.team, factor:S.factor, surface:S.surface, n:S.n, stamp:S.stamp, maxpx:S.maxpx, q:S.q, dep:Object.assign({}, S.dep, {seq:0, view:'list', cur:'', q:'', lastLine:''})};
   S = fix(Object.assign(defaults(), keep, {sites:Array.from({length:MAXSITE}, blankSite), dt:'', cur:0, med:'w', tab:'rec', lastExport:''})); dirty = 0; saveNow(); render(); toast('ล้างข้อมูลแล้ว');
 }
 
 /* ---------- ส่งออก: ไฟล์พื้นฐาน ---------- */
 const MIME_X = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', MIME_D = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 const baseName = () => { const d = new Date(); // รหัส_วันที่สำรวจ_เวลาที่ส่งออก (กันชื่อซ้ำเมื่อบันทึกหลายครั้งในวันเดียวกัน)
-  return `${(S.codes.w || 'BPW').replace(/\d+$/, '')}_${(S.dt || nowLocal()).slice(0, 10)}_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`; };
+  return `${(S.codes.w || 'NAW').replace(/\d+$/, '')}_${(S.dt || nowLocal()).slice(0, 10)}_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`; };
 async function saveBlob(blob, name){
   try { const file = blob instanceof File ? blob : new File([blob], name, {type: blob.type});
     if (navigator.canShare && navigator.canShare({files:[file]})) { await navigator.share({files:[file], title:name}); return; }
@@ -1220,6 +1548,7 @@ const toCsv = rows => '﻿' + rows.map(r => r.map(v => { const s = String(v ?? '
 function infoRows(){
   return [['Lake Name', S.lake], ['วันเวลาสำรวจ', fmtDT(S.dt)], ['ผู้เก็บตัวอย่าง', S.team || ''], ['รหัสจุดน้ำ', S.codes.w], ['รหัสจุดตะกอนดิน', S.codes.se], ['รหัสจุดดิน', S.codes.so],
     ['จำนวนจุดเก็บตัวอย่าง', nSites()], ['จุดที่มีข้อมูล (น้ำ / ตะกอนดิน / ดิน)', MK.map(m => listIdx(m).length).join(' / ')], ['จำนวนภาพถ่าย', allPhotos().length],
+    ['ความลึกทั่วอ่าง: จำนวนจุด', listIdx('dp').length], ['ความลึกทั่วอ่าง: จำนวนรอบวัดต่อจุด', S.dep.rounds], ['ความลึกทั่วอ่าง: ค่าปรับ (ม.)', num(S.dep.offset) || 0],
     ['ตัวคูณท้องน้ำ (Secchi ×)', num(S.factor) ?? 2.8], ['ระดับผิวน้ำ (ซม.)', num(S.surface) ?? 30], ['หมายเหตุ', 'กลางน้ำ = ท้องน้ำ ÷ 2'],
     ['ส่งออกเมื่อ', fmtDT(nowLocal())], ['เวอร์ชันแอป', APPV]];
 }
@@ -1235,6 +1564,7 @@ function sheetXml(rows, widths, hdrStyle, bodyStyle, freeze){
 }
 async function buildXlsxBytes(){
   const sheets = MK.map(m => ({name:MED[m].n, rows:[headOf(m), ...rowsOf(m)], widths:COLS[m].map(c => c.w), freeze:true, hdr:1, body:2}));
+  if (listIdx('dp').length) sheets.push({name:'ความลึกทั่วอ่าง', rows:[headOf('dp'), ...rowsOf('dp')], widths:COLS.dp.map(c => c.w), freeze:true, hdr:1, body:2});
   sheets.push({name:'รายการรูปภาพ', rows:[['Sampling Site','ตัวอย่าง','ชนิดภาพ','ไฟล์ (ในแพ็กเกจ ZIP)','วันเวลา','คำบรรยาย','กว้าง (px)','สูง (px)'],
     ...allPhotos().map(o => [stName(o.m, o.i), MED[o.m].n, KIND[o.p.k], o.file, fmtDT(o.p.ts), o.p.cap || '', o.p.w || '', o.p.h || ''])], widths:[14,12,20,44,17,30,10,10], freeze:true, hdr:1, body:2});
   sheets.push({name:'รายละเอียด', rows:infoRows(), widths:[38,40], freeze:false, hdr:3, body:3});
@@ -1268,9 +1598,14 @@ async function buildDocxBytes(withPhotos){
     + wp(`Lake Name: ${S.lake || '-'}`, {after:40}) + wp(`Sampling Date and time: ${fmtDT(S.dt)}`, {after:40}) + wp(`ผู้เก็บตัวอย่าง: ${S.team || '-'}`, {after:140});
   for (const m of MK) { const idx = listIdx(m); if (!idx.length) continue;
     body += wp(`${MED[m].full} — ${idx.length} จุด`, {sz:26, bold:true, after:80, color:'0A6C7C'}) + docTable(m) + wp('', {after:120}); }
+  const nDp = listIdx('dp').length;
+  if (nDp) { body += wp(`${MED.dp.full} — ${nDp} จุด · ${S.dep.rounds} รอบ/จุด · ค่าปรับ ${num(S.dep.offset) || 0} ม.`, {sz:26, bold:true, after:80, color:'0A6C7C'});
+    if (nDp <= 150) body += docTable('dp') + wp('', {after:120});
+    else { const nets = DP.map(x => dpStat(x).net).filter(v => v != null);
+      body += wp(`จำนวนจุดมากกว่า 150 จึงแสดงเฉพาะสรุป (ข้อมูลเต็มอยู่ในไฟล์ Excel / CSV): ความลึกสุทธิเฉลี่ย ${nets.length ? r2(nets.reduce((a, b) => a + b, 0) / nets.length) : '-'} ม. · ต่ำสุด ${nets.length ? r2(Math.min(...nets)) : '-'} · สูงสุด ${nets.length ? r2(Math.max(...nets)) : '-'}`, {sz:20, after:120}); } }
   body += wp(`ระดับเก็บตัวอย่างน้ำ: ท้องน้ำ = Secchi × ${num(S.factor) ?? 2.8}, กลางน้ำ = ท้องน้ำ ÷ 2, ผิวน้ำ = ${num(S.surface) ?? 30} ซม.`, {sz:17, after:0, color:'5B7280'});
   if (withPhotos) {
-    const ph = allPhotos();
+    const ph = allPhotos().filter(o => o.m !== 'dp'); // รูปจุดวัดความลึกอยู่ในแพ็กเกจ ZIP ไม่ฝังใน Word
     if (ph.length) {
       body += '<w:p><w:r><w:br w:type="page"/></w:r></w:p>' + wp('ภาพถ่าย', {sz:30, bold:true, after:120, color:'0A6C7C'});
       const groups = new Map(); ph.forEach(o => { const k = o.m + '|' + o.i; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(o); });
@@ -1302,21 +1637,22 @@ async function buildDocxBytes(withPhotos){
   return zip.generateAsync({type:'uint8array', compression:'DEFLATE'});
 }
 /* --- พิกัด / GIS --- */
-function pointsList(){ const out = []; for (const m of MK) for (let i = 0; i < nSites(); i++) { const x = recOf(m, i), lo = num(x.lon), la = num(x.lat); if (lo != null && la != null) out.push({m, i, x, lo, la, name:stName(m, i)}); } return out; }
-function coordsCsv(m){ return toCsv([['Point','Symbol','latitude','longitude'], ...pointsList().filter(p => p.m === m).map(p => [p.i + 1, p.name, p.la, p.lo])]); }
+const ALLM = [...MK, 'dp'];
+function pointsList(){ const out = []; for (const m of ALLM) for (let i = 0, n = m === 'dp' ? DP.length : nSites(); i < n; i++) { const x = recOf(m, i), lo = num(x.lon), la = num(x.lat); if (lo != null && la != null) out.push({m, i, x, lo, la, name:stName(m, i)}); } return out; }
+function coordsCsv(m){ return toCsv([['Point','Symbol','latitude','longitude'], ...pointsList().filter(p => p.m === m).map(p => [m === 'dp' ? p.x.n : p.i + 1, p.name, p.la, p.lo])]); }
 function kmlText(){
   const style = m => `<Style id="s${m}"><IconStyle><color>${MED[m].kml}</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle><LabelStyle><scale>.9</scale></LabelStyle></Style>`;
   const folder = m => `<Folder><name>${xe(MED[m].full)}</name>${pointsList().filter(p => p.m === m).map(p => {
     const rows = COLS[m].map(c => [c.h, c.f(p.x, p.i)]).filter(r => r[1] !== '');
     return `<Placemark><name>${xe(p.name)}</name><styleUrl>#s${m}</styleUrl><description><![CDATA[<table>${rows.map(r => `<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td></tr>`).join('')}</table>]]></description><Point><coordinates>${p.lo},${p.la},0</coordinates></Point></Placemark>`; }).join('')}</Folder>`;
-  return `<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>${xe(S.lake || 'Water sampling')} ${xe((S.dt || '').slice(0, 10))}</name>${MK.map(style).join('')}${MK.map(folder).join('')}</Document></kml>`;
+  return `<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>${xe(S.lake || 'Water sampling')} ${xe((S.dt || '').slice(0, 10))}</name>${ALLM.map(style).join('')}${ALLM.map(folder).join('')}</Document></kml>`;
 }
 function geojsonText(){
   return JSON.stringify({type:'FeatureCollection', features: pointsList().map(p => { const props = {station:p.name, medium:MED[p.m].full}; COLS[p.m].forEach(c => { const v = c.f(p.x, p.i); if (v !== '') props[c.h] = v; });
     return {type:'Feature', geometry:{type:'Point', coordinates:[p.lo, p.la]}, properties:props}; })}, null, 1);
 }
 /* --- สำรอง / กู้คืน --- */
-const backupJson = () => JSON.stringify({app:'bpw-datasheet', version:2, exported:new Date().toISOString(), state:S}, null, 1);
+const backupJson = () => JSON.stringify({app:'bpw-datasheet', version:2, exported:new Date().toISOString(), state:S, depth:DP});
 async function addPhotosToZip(zip, root){
   const idx = {}, ph = allPhotos(); let k = 0;
   for (const o of ph) { k++; busy(`กำลังรวมรูปภาพ… ${k}/${ph.length}`); const r = await idbGet(o.p.id); if (!r) continue; const path = (root || '') + o.file; idx[o.p.id] = path; zip.file(path, r.blob, {compression:'STORE'}); }
@@ -1328,6 +1664,7 @@ async function buildPackage(){
   busy('กำลังสร้าง Excel…'); zip.file(`${b}_datasheet.xlsx`, await buildXlsxBytes());
   busy('กำลังสร้าง Word…'); zip.file(`${b}_report.docx`, await buildDocxBytes(true));
   MK.forEach(m => { zip.file(`csv/${MED[m].folder}.csv`, toCsv([headOf(m), ...rowsOf(m)])); zip.file(`coordinates/${S.codes[m]}_Coordinate.csv`, coordsCsv(m)); });
+  if (listIdx('dp').length) { zip.file('csv/depth_survey.csv', toCsv([headOf('dp'), ...rowsOf('dp')])); zip.file('csv/depth_xyz.csv', dpXyz()); zip.file(`coordinates/${S.dep.code || 'NAD'}_Coordinate.csv`, coordsCsv('dp')); }
   zip.file('gis/points.kml', kmlText()); zip.file('gis/points.geojson', geojsonText());
   zip.file('backup/backup.json', backupJson());
   const idx = await addPhotosToZip(zip, ''); zip.file('backup/photos_index.json', JSON.stringify(idx));
@@ -1337,19 +1674,22 @@ async function buildPackage(){
 }
 async function restoreFile(file){
   try {
-    let state, zip = null, idx = {};
-    if (/\.json$/i.test(file.name)) { const o = JSON.parse(await file.text()); state = o.state || o; }
+    let state, zip = null, idx = {}, depth = [];
+    if (/\.json$/i.test(file.name)) { const o = JSON.parse(await file.text()); state = o.state || o; depth = o.depth || []; }
     else { zip = await JSZip.loadAsync(file); const f = Object.values(zip.files).find(z => /(^|\/)backup\.json$/.test(z.name)); if (!f) return toast('ไม่พบไฟล์สำรองในไฟล์ ZIP นี้');
-      state = JSON.parse(await f.async('string')).state; const pf = Object.values(zip.files).find(z => /(^|\/)photos_index\.json$/.test(z.name)); if (pf) idx = JSON.parse(await pf.async('string')); }
+      const bo = JSON.parse(await f.async('string')); state = bo.state; depth = bo.depth || []; const pf = Object.values(zip.files).find(z => /(^|\/)photos_index\.json$/.test(z.name)); if (pf) idx = JSON.parse(await pf.async('string')); }
     if (!state || !state.sites) return toast('ไฟล์ไม่ถูกต้อง');
     if (!confirm('กู้คืนข้อมูลจากไฟล์นี้? ข้อมูลปัจจุบันในเครื่องจะถูกแทนที่')) return;
-    busy('กำลังกู้คืนข้อมูล…'); await idbClear(); urlCache.forEach(u => URL.revokeObjectURL(u)); urlCache.clear();
+    busy('กำลังกู้คืนข้อมูล…'); await idbClear(); await idbClearS('d'); urlCache.forEach(u => URL.revokeObjectURL(u)); urlCache.clear();
     S = fix(state); let ok = 0, miss = 0;
-    if (zip) for (const m of MK) for (let i = 0; i < MAXSITE; i++) { const x = recOf(m, i);
-      for (const p of x.photos) { const path = idx[p.id], f = path && zip.file(path); if (!f) { miss++; continue; }
-        const blob = new Blob([await f.async('arraybuffer')], {type:'image/jpeg'}); let thumb = blob; try { thumb = (await resizeBlob(blob, 260, .7, null)).blob; } catch(e){}
-        await idbPut({id:p.id, blob, thumb, w:p.w, h:p.h}); ok++; } }
-    if (!zip) S.sites.forEach(s => MK.forEach(m => { s[m].photos = []; }));
+    DP = (Array.isArray(depth) ? depth : []).filter(x => x && x.id).map(x => Object.assign({v:[], photos:[], note:'', line:'', lon:'', lat:'', acc:'', ts:''}, x)); DP.sort((a, b) => a.n - b.n);
+    S.dep.seq = Math.max(S.dep.seq || 0, 0, ...DP.map(x => x.n)); buildDpCols();
+    const restorePhotos = async list => { for (const p of list) { const path = idx[p.id], f = path && zip.file(path); if (!f) { miss++; continue; }
+      const blob = new Blob([await f.async('arraybuffer')], {type:'image/jpeg'}); let thumb = blob; try { thumb = (await resizeBlob(blob, 260, .7, null)).blob; } catch(e){}
+      await idbPut({id:p.id, blob, thumb, w:p.w, h:p.h}); ok++; } };
+    if (zip) { for (const m of MK) for (let i = 0; i < MAXSITE; i++) await restorePhotos(recOf(m, i).photos); for (const x of DP) await restorePhotos(x.photos); }
+    else { S.sites.forEach(s => MK.forEach(m => { s[m].photos = []; })); DP.forEach(x => { x.photos = []; }); }
+    for (const x of DP) await idbPutS('d', x);
     saveNow(); busy(''); render(); toast(`กู้คืนแล้ว${ok ? ' · รูป ' + ok : ''}${miss ? ' · รูปหาย ' + miss : ''}`);
   } catch(e){ console.error(e); busy(''); toast('กู้คืนไม่สำเร็จ ไฟล์อาจเสียหาย'); }
 }
@@ -1361,7 +1701,9 @@ function plainText(){
     if (m === 'w') return `${stName(m,i)}  GPS ${dash(x.lon)}, ${dash(x.lat)} | Depth ${dash(x.depth)} ม. | Secchi ${dash(x.secchi)} ซม. → ผิว ${dash(r1(calc(x).s))} / กลาง ${dash(r1(calc(x).m))} / ท้อง ${dash(r1(calc(x).b))}\n  Temp ผิว/กลาง/ท้อง ${dash(x.t.s)}/${dash(x.t.m)}/${dash(x.t.b)} | pH ผิว/กลาง/ท้อง ${dash(x.p.s)}/${dash(x.p.m)}/${dash(x.p.b)} | รูป ${x.photos.length}`;
     if (m === 'se') return `${stName(m,i)}  GPS ${dash(x.lon)}, ${dash(x.lat)} | น้ำลึก ${dash(x.wdepth)} ม. | เก็บลึก ${dash(x.sd)} ซม. | รูป ${x.photos.length}`;
     return `${stName(m,i)}  GPS ${dash(x.lon)}, ${dash(x.lat)} | ลึก ${dash(x.sd0)}–${dash(x.sd1)} ซม. | รูป ${x.photos.length}`; }).join('\n'); }).filter(Boolean).join('\n\n');
-  return `Water Sampling Field Datasheet\nLake: ${S.lake || '-'}\nวันเวลา: ${fmtDT(S.dt)}\nผู้เก็บ: ${S.team || '-'}\n\n${parts || '(ยังไม่มีข้อมูล)'}`;
+  const nets = DP.map(x => dpStat(x).net).filter(v => v != null);
+  const dpTxt = listIdx('dp').length ? `\n\n== ${MED.dp.full} ==\n${listIdx('dp').length} จุด · ${S.dep.rounds} รอบ/จุด · สุทธิเฉลี่ย ${nets.length ? r2(nets.reduce((a, b) => a + b, 0) / nets.length) : '-'} ม. (ต่ำสุด ${nets.length ? r2(Math.min(...nets)) : '-'} / สูงสุด ${nets.length ? r2(Math.max(...nets)) : '-'})` : '';
+  return `Water Sampling Field Datasheet\nLake: ${S.lake || '-'}\nวันเวลา: ${fmtDT(S.dt)}\nผู้เก็บ: ${S.team || '-'}\n\n${parts || '(ยังไม่มีข้อมูลตัวอย่าง)'}${dpTxt}`;
 }
 function showCopyModal(text, title){ $('#mtitle').textContent = title || 'กดค้างที่ข้อความ เลือกทั้งหมด แล้วคัดลอก'; $('#copybox').value = text; $('#modal').classList.add('show');
   setTimeout(() => { const t = $('#copybox'); t.focus(); t.select(); t.setSelectionRange(0, 999999); }, 50); }
@@ -1381,7 +1723,10 @@ async function runExport(kind){
     if (kind === 'pkg') { const blob = await buildPackage(); busy(''); await saveBlob(blob, `${b}_package.zip`); mark(); }
     else if (kind === 'xlsx') { const u = await buildXlsxBytes(); busy(''); await saveBlob(new Blob([u], {type:MIME_X}), `${b}_datasheet.xlsx`); mark(); }
     else if (kind === 'docx' || kind === 'docx0') { const u = await buildDocxBytes(kind === 'docx'); busy(''); await saveBlob(new Blob([u], {type:MIME_D}), `${b}_report.docx`); mark(); }
+    else if (kind === 'xyz') { if (!DP.length) { busy(''); return toast('ยังไม่มีจุดวัดความลึก'); } busy(''); await saveBlob(new Blob([dpXyz()], {type:'text/csv'}), `${b}_depth_xyz.csv`); mark(); }
+    else if (kind === 'dcsv') { if (!DP.length) { busy(''); return toast('ยังไม่มีจุดวัดความลึก'); } busy(''); await saveBlob(new Blob([toCsv([headOf('dp'), ...rowsOf('dp')])], {type:'text/csv'}), `${b}_depth_survey.csv`); mark(); }
     else if (kind === 'csv') { const z = new JSZip(); MK.forEach(m => { z.file(`${MED[m].folder}.csv`, toCsv([headOf(m), ...rowsOf(m)])); z.file(`${S.codes[m]}_Coordinate.csv`, coordsCsv(m)); });
+      if (listIdx('dp').length) { z.file('depth_survey.csv', toCsv([headOf('dp'), ...rowsOf('dp')])); z.file('depth_xyz.csv', dpXyz()); z.file(`${S.dep.code || 'NAD'}_Coordinate.csv`, coordsCsv('dp')); }
       const blob = await z.generateAsync({type:'blob', compression:'DEFLATE'}); busy(''); await saveBlob(blob, `${b}_csv.zip`); mark(); }
     else if (kind === 'kml') { busy(''); await saveBlob(new Blob([kmlText()], {type:'application/vnd.google-earth.kml+xml'}), `${b}.kml`); mark(); }
     else if (kind === 'geojson') { busy(''); await saveBlob(new Blob([geojsonText()], {type:'application/geo+json'}), `${b}.geojson`); mark(); }
@@ -1394,7 +1739,9 @@ async function runExport(kind){
 /* ---------- boot ---------- */
 S = load(); setSaved(storeOK);
 $('#medseg').onclick = e => { const b = e.target.closest('[data-m]'); if (b) setMed(b.dataset.m); };
-$('#chips').onclick = e => { const b = e.target.closest('[data-i]'); if (b) go(+b.dataset.i); };
+$('#chips').onclick = e => {
+  if (S.tab === 'dep') { const d = e.target.closest('[data-did]'); if (d) { dpGoto(d.dataset.did); return; } if (e.target.closest('[data-dadd]')) { const x = dpCur(); if (x && dpBlank(x)) return toast('จุดนี้ยังว่างอยู่ กรอกค่าก่อน'); dpWarn(x); dpNew(); } return; }
+  const b = e.target.closest('[data-i]'); if (b) go(+b.dataset.i); };
 $$('.tabbtn').forEach(b => b.onclick = () => setTab(b.dataset.tab));
 $('#prev').onclick = () => go(S.cur - 1);
 $('#next').onclick = () => { if (S.cur >= nSites() - 1) setTab('sum'); else go(S.cur + 1); };
@@ -1409,6 +1756,8 @@ let sx = 0, sy = 0, st = 0;
 view.addEventListener('touchstart', e => { const t = e.touches[0]; sx = t.clientX; sy = t.clientY; st = Date.now(); }, {passive:true});
 view.addEventListener('touchend', e => { if (S.tab !== 'rec' || e.target.closest('input,textarea,select,.tbl,.pgrid,.chips')) return; const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
   if (Math.abs(dx) > 90 && Math.abs(dy) < 45 && Date.now() - st < 600) { if (dx < 0 && S.cur < nSites() - 1) go(S.cur + 1); else if (dx > 0 && S.cur > 0) go(S.cur - 1); } }, {passive:true});
+buildDpCols(); dpLoad().then(() => { if (S.tab === 'dep') render(); }).catch(() => {});
+$('#dbar').onclick = e => { const b = e.target.closest('[data-d]'); if (!b) return; const d = b.dataset.d; if (d === 'new') dpNew(); else if (d === 'next') dpNext(); else if (d === 'prev') dpPrev(); else if (d === 'back') dpBack(); };
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e){}
 render();
 </script>
