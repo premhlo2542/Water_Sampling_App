@@ -250,7 +250,8 @@ body{--mc:var(--water)}body[data-m="se"]{--mc:var(--sed)}body[data-m="so"]{--mc:
 .mapwrap{position:relative}
 .mapbtns{position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px}
 .mapbtns button{width:42px;height:42px;border-radius:12px;background:rgba(0,0,0,.62);color:#fff;font-size:24px;font-weight:700;line-height:1;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-.mapbtns button.sm{font-size:11px;font-weight:700}
+.mapbtns button.sm{font-size:11px;font-weight:700;line-height:1.15;height:auto;min-height:42px;padding:4px 2px}
+.mapbtns button[aria-pressed="true"]{background:var(--mc);box-shadow:0 0 0 2px #fff}
 .gpsbig{display:block;width:100%;height:56px;border-radius:15px;background:var(--mc);color:#fff;font-size:17px;font-weight:700}
 .gpsbig:disabled{opacity:.6}
 .dgrid .in{height:64px;font-size:26px;text-align:center}
@@ -1132,6 +1133,7 @@ function onViewClick(e){
   else if (a === 'dopen') dpOpen(b.dataset.id);
   else if (a === 'dzoom') { dpView.z = Math.max(-6, Math.min(6, Math.round((dpView.z + (+b.dataset.d)) * 2) / 2)); dpUpdate(); }
   else if (a === 'dzreset') { dpView = {z:0, x:0, y:0}; dpUpdate(); }
+  else if (a === 'dpan') { dpPan = !dpPan; b.setAttribute('aria-pressed', String(dpPan)); const cv = $('#dpPlot'); if (cv) cv.style.touchAction = dpPan ? 'none' : 'pan-y'; toast(dpPan ? 'เปิดโหมดเลื่อนแผนที่: ลากแผนที่ได้ (หน้าจอจะไม่เลื่อนเมื่อนิ้วอยู่บนแผนที่) · กดปุ่มอีกครั้งเพื่อปิด' : 'ปิดโหมดเลื่อนแผนที่: เลื่อนหน้าจอผ่านแผนที่ได้ตามปกติ', 2800); }
   else if (a === 'dgps') gpsFillDp();
   else if (a === 'dtsnow') { const x = dpCur(); if (x) { x.ts = nowLocal(); const t = $('[data-t="ts"]'); if (t) t.value = x.ts; idbPutS('d', x); } }
   else if (a === 'ddel') dpDelete(S.dep.cur);
@@ -1191,7 +1193,7 @@ function wireViewer(){
 const photoFile = (m, i, p, idx) => `${stName(m, i)}_${p.k === 'sample' ? 'sample' : 'action'}_${recOf(m, i).photos.slice(0, idx + 1).filter(q => q.k === p.k).length}.jpg`;
 
 /* ---------- สำรวจความลึกทั่วอ่าง (Depth survey) ---------- */
-let dpLimit = 100, dpHits = [], dpView = {z:0, x:0, y:0}, dpMoved = false, dpPinch = 0;
+let dpLimit = 100, dpHits = [], dpView = {z:0, x:0, y:0}, dpMoved = false, dpPinch = 0, dpPan = false;
 const dpPtrs = new Map();
 const dpHas = x => x.v.some(v => v !== '') || (x.lon !== '' && x.lat !== '');
 const dpIdx = id => DP.findIndex(x => x.id === id);
@@ -1283,7 +1285,7 @@ function renderDep(){
     : '<button class="dmain" data-d="new" type="button">＋ จุดใหม่</button>';
 }
 function renderDepList(){
-  dpView = {z:0, x:0, y:0};
+  dpView = {z:0, x:0, y:0}; dpPan = false;
   const st = DP.map(dpStat), nets = st.map(s => s.net).filter(v => v != null), done = DP.filter(dpDone).length;
   const mean = nets.length ? nets.reduce((a, b) => a + b, 0) / nets.length : null, off = num(S.dep.offset) || 0;
   $('#view').innerHTML = `
@@ -1291,8 +1293,8 @@ function renderDepList(){
     <section class="card"><div class="kv"><span>ครบทุกรอบ + พิกัด</span><b>${done} / ${DP.length}</b><span>ความลึกเฉลี่ย</span><b>${mean == null ? '–' : r2(mean) + ' ม.'}</b>
       <span>ต่ำสุด – สูงสุด</span><b>${nets.length ? r2(Math.min(...nets)) + ' – ' + r2(Math.max(...nets)) + ' ม.' : '–'}</b><span>ค่าปรับ (offset)</span><b>${off} ม.</b></div></section>
     ${card('depth', 'แผนที่จุดวัด (ดาวเทียม)', `<div class="mapwrap"><canvas id="dpPlot" style="width:100%;display:block;border-radius:12px;background:var(--soft)"></canvas>
-        <div class="mapbtns"><button type="button" data-act="dzoom" data-d="1" aria-label="ซูมเข้า">+</button><button type="button" data-act="dzoom" data-d="-1" aria-label="ซูมออก">−</button><button type="button" class="sm" data-act="dzreset" aria-label="ดูทุกจุด">ทั้งหมด</button></div></div>
-      <p class="hint" style="margin:8px 0 0">ซูมด้วยปุ่ม + − หรือใช้สองนิ้วถ่าง/หุบ · ลากเพื่อเลื่อน · แตะจุดเพื่อเปิดดูและแก้ไข · สีเหลือง = ตื้น ม่วงเข้ม = ลึก · ต้องมีอินเทอร์เน็ตจึงจะโหลดภาพดาวเทียม</p>`)}
+        <div class="mapbtns"><button type="button" data-act="dzoom" data-d="1" aria-label="ซูมเข้า">+</button><button type="button" data-act="dzoom" data-d="-1" aria-label="ซูมออก">−</button><button type="button" class="sm" data-act="dzreset" aria-label="ดูทุกจุด">ทั้งหมด</button><button type="button" class="sm" data-act="dpan" aria-pressed="false" aria-label="เปิดโหมดเลื่อนแผนที่">เลื่อน<br>แผนที่</button></div></div>
+      <p class="hint" style="margin:8px 0 0">เลื่อนหน้าจอผ่านแผนที่ได้ตามปกติ · ซูมด้วยปุ่ม + − · กด “เลื่อนแผนที่” ถ้าต้องการลาก/ใช้สองนิ้วถ่างหุบ · แตะจุดเพื่อเปิดดูและแก้ไข · สีเหลือง = ตื้น ม่วงเข้ม = ลึก · ต้องมีอินเทอร์เน็ตจึงจะโหลดภาพดาวเทียม</p>`)}
     <section class="card"><div class="card-h"><h3><i>${ICO.csv}</i>รายการจุด</h3></div>
       <div class="row2" style="grid-template-columns:1fr 128px;margin-bottom:8px">
         <input class="tx" data-dq type="search" placeholder="ค้นหา ID / แนว / หมายเหตุ" value="${esc(S.dep.q || '')}" autocomplete="off">
@@ -1369,15 +1371,16 @@ function dpApplyView(){
 }
 function dpUpdate(){ dpApplyView(); dpSchedule(); }
 function bindDpPlot(cv){
-  cv.style.touchAction = 'none';
+  cv.style.touchAction = dpPan ? 'none' : 'pan-y'; // ปกติให้นิ้วเลื่อนหน้าเว็บผ่านแผนที่ได้ · เปิด "เลื่อนแผนที่" ถึงจะลากแผนที่ด้วยนิ้ว
   cv.onpointerdown = e => { try { cv.setPointerCapture(e.pointerId); } catch(_){} dpPtrs.set(e.pointerId, {x:e.clientX, y:e.clientY, sx:e.clientX, sy:e.clientY}); dpMoved = false; if (dpPtrs.size === 2) dpPinch = dpDist(); };
   cv.onpointermove = e => { const p = dpPtrs.get(e.pointerId), st = dpPlotState; if (!p || !st || !st.k) return;
+    if (e.pointerType === 'touch' && !dpPan) return;
     if (dpPtrs.size >= 2) { const d = dpDist(); if (dpPinch > 0 && d > 0) { dpView.z = Math.max(-6, Math.min(6, dpView.z + Math.log2(d / dpPinch))); dpPinch = d; dpMoved = true; dpUpdate(); } p.x = e.clientX; p.y = e.clientY; return; }
     if (Math.hypot(e.clientX - p.sx, e.clientY - p.sy) > 5) dpMoved = true;
     if (dpMoved) { dpView.x -= (e.clientX - p.x) / st.k; dpView.y -= (e.clientY - p.y) / st.k; p.x = e.clientX; p.y = e.clientY; dpUpdate(); } };
   const end = e => { dpPtrs.delete(e.pointerId); dpPinch = 0; };
   cv.onpointerup = end; cv.onpointercancel = end;
-  cv.onwheel = e => { e.preventDefault(); dpView.z = Math.max(-6, Math.min(6, dpView.z + (e.deltaY < 0 ? .5 : -.5))); dpUpdate(); };
+  cv.onwheel = e => { if (!e.ctrlKey && !dpPan) return; e.preventDefault(); dpView.z = Math.max(-6, Math.min(6, dpView.z + (e.deltaY < 0 ? .5 : -.5))); dpUpdate(); };
 }
 const mercX = lon => (lon + 180) / 360;
 const mercY = lat => { const s = Math.sin(Math.max(-85, Math.min(85, lat)) * Math.PI / 180); return 0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI); };
